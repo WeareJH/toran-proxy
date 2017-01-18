@@ -1,0 +1,36 @@
+version: '2'
+
+volumes:
+    pub-data:
+    app-data:
+    cache-data:
+
+services:
+    nginx:
+        container_name: toran-nginx
+        image: nginx:stable-alpine
+        image: wearejh/toran-nginx
+        build:
+            context: .
+            dockerfile: app.nginx.dockerfile
+        volumes:
+            - pub-data:/var/www/web
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - toran
+
+    toran:
+        container_name: toran-php
+        image: wearejh/toran-proxy
+        build:
+            context: .
+            dockerfile: app.toran.dockerfile
+        working_dir: /var/www
+        ports:
+            - 9000
+        volumes:
+            - pub-data:/var/www/web
+            - app-data:/var/www/app/toran
+            - cache-data:/var/www/app/cache

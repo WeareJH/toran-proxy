@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mkdir /root/toran
+
+[ "$HTTP_AUTH" = "true" ] && htpasswd -cb /etc/htpasswd $HTTP_AUTH_USER $HTTP_AUTH_PASS
+
+exec "$@"

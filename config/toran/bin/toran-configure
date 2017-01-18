@@ -1,0 +1,15 @@
+#!/bin/bash
+
+APP_DIR=/var/www
+TORAN_SECRET=${TORAN_SECRET:-$(openssl rand -base64 10)}
+
+sed -i "s|toran_scheme:.*|toran_scheme: $TORAN_SCHEME|g" $APP_DIR/app/config/parameters.yml \
+    && sed -i "s|toran_host:.*|toran_host: $TORAN_HOST|g" $APP_DIR/app/config/parameters.yml \
+    && sed -i "s|secret:.*|secret: $TORAN_SECRET|g" $APP_DIR/app/config/parameters.yml \
+
+envsubst < "$APP_DIR/app/toran/composer/auth.json.template" > "$APP_DIR/app/toran/composer/auth.json"
+rm $APP_DIR/app/toran/composer/auth.json.template
+
+chown -R www-data:www-data $APP_DIR/app/toran $APP_DIR/app/cache $APP_DIR/app/logs $APP_DIR/web/repo
+
+exec "$@"

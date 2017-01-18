@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+    nginx:
+        volumes:
+            - /etc/letsencrypt:/etc/letsencrypt
+        env_file:
+            - config/production.env
+
+    toran:
+        volumes:
+            - /root/.ssh:/root/.ssh
+        env_file:
+            - config/production.env

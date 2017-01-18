@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+    nginx:
+        volumes:
+            - ./config/certs:/etc/letsencrypt
+
+    toran:
+        volumes:
+            - ${HOME}/.ssh:/root/.ssh
+        env_file:
+            - config/local.env
