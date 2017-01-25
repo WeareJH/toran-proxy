@@ -12,4 +12,6 @@ rm $APP_DIR/app/toran/composer/auth.json.template
 
 chown -R www-data:www-data $APP_DIR/app/toran $APP_DIR/app/cache $APP_DIR/app/logs $APP_DIR/web/repo
 
+/etc/init.d/cron start
+
 exec "$@"

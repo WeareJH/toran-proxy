@@ -18,9 +18,9 @@ COPY config/toran/bin/toran-configure /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/toran-configure /var/www/app/console /var/www/bin/cron
 
-RUN echo "1 * * * * cd /var/www && php bin/cron" | crontab -u www-data -
-
 COPY config/toran/auth.json.template /var/www/app/toran/composer/auth.json.template
+
+RUN echo "* * * * * cd /var/www && /usr/local/bin/php bin/cron" | crontab -u www-data -
 
 ENTRYPOINT ["toran-configure"]
 CMD ["php-fpm"]
