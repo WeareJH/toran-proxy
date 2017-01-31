@@ -4,6 +4,7 @@ volumes:
     pub-data:
     app-data:
     cache-data:
+    repo-data:
 
 services:
     nginx:
@@ -34,3 +35,4 @@ services:
             - pub-data:/var/www/web
             - app-data:/var/www/app/toran
             - cache-data:/var/www/app/cache
+            - repo-data:/var/www/repos

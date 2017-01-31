@@ -20,6 +20,8 @@ RUN chmod +x /usr/local/bin/toran-configure /var/www/app/console /var/www/bin/cr
 
 COPY config/toran/auth.json.template /var/www/app/toran/composer/auth.json.template
 
+RUN mkdir /var/www/repos && chown www-data:www-data /var/www/repos
+
 RUN echo "* * * * * cd /var/www && /usr/local/bin/php bin/cron" | crontab -u www-data -
 
 ENTRYPOINT ["toran-configure"]
